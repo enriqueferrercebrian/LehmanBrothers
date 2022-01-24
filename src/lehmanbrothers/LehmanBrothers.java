@@ -10,19 +10,24 @@ import java.util.List;
 public class LehmanBrothers {
 
     public static void main(String[] args) {
-        
+
         Persona titular = crearUsuario();
         CuentaBancaria nuevaCuenta = new CuentaBancaria(pinSeguridad(), CuentaBancaria.generarIBAN(pais()), titular.getNombre());
         seguir = true;
         while (seguir == true) {
             respuestaUsuario = 8;
+
             menu();
 
             switch (respuestaUsuario) {
 
                 case 1:
-                  comprobarPin();
-                    muestraInfoCuenta(nuevaCuenta, titular);
+                    if (comprobarPin(nuevaCuenta)) {
+
+                        muestraInfoCuenta(nuevaCuenta, titular);
+                    }else{
+                    System.out.println("Losiento has fallado");
+                    }
                     break;
                 case 2:
 
@@ -83,7 +88,7 @@ public class LehmanBrothers {
         DNI = /*sc.nextLine()*/ "74015881H";
 
         Persona titular = new Persona(DNI, nomTitular);
-        
+
         return titular;
     }
 
@@ -99,15 +104,16 @@ public class LehmanBrothers {
         return pin;
     }
 
-    public static void comprobarPin() {
-        for (int i = 0; i == 3; i++) {
+    public static boolean comprobarPin(CuentaBancaria nuevaCuenta) {
+        for (int i = 0; i < 3; ++i) {
             System.out.println("Introduce tu PIN de 4 cifras");
             pin2 = Integer.parseInt(sc.nextLine());
             if (pin2 == nuevaCuenta.getPin()) {
-                System.out.println("maquinaaaaaaaaaaaaaaaa");
-            }
+                return true;
+               
+            } 
         }
-       
+        return false;
     }
 //-------------------------------------------------------------------------------------------------------
     // Muestreo de Paises.
