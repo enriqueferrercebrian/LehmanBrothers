@@ -19,19 +19,25 @@ public class CuentaBancaria {
     private List<Movimientos> historicoMovimientos;
     private static Set<Persona> autorizados = new HashSet<>();
     private static int controlMovimiento;
+    private static  int pin;
     private static final long IBANMinimo = 0000000001;
     private static final long IBANMaximo = 9999999999L;
 //contructor 
 
 //contructor
-    public CuentaBancaria(String iban, String nomTitular) {
+    public CuentaBancaria(int pin, String iban, String nomTitular) {
+        this.pin = pin;
         this.iban = iban;
         this.nomTitular = nomTitular;
         saldo = 0;
+        
         historicoMovimientos = new ArrayList<>();
     }
 
     // Getters
+    public int getPin() {
+        return pin;
+    }
     public String getIban() {
         return iban;
     }
@@ -293,6 +299,7 @@ public class CuentaBancaria {
         iban = pais + codPais + codCiudad + codDir + (String.valueOf(codCiudad).charAt(0)) + (String.valueOf(codDir).charAt(0)) + ibanRandom;
         if (iban.length() == 24 && iban.substring(0, 2).equalsIgnoreCase("ES")) {
         } else {
+            System.out.println(iban);
             System.out.println("Formato de IBAN no sorportado.");
         }
 

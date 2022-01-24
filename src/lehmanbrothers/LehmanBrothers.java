@@ -10,14 +10,9 @@ import java.util.List;
 public class LehmanBrothers {
 
     public static void main(String[] args) {
-
-        pais();
-        System.out.println("Introduce el nombre del titular");
-        nomTitular = /*sc.nextLine()*/ "Enriqueeeee";
-        System.out.println("Introduce el DNI");
-        DNI = /*sc.nextLine()*/ "74015881H";
-        Persona titular = new Persona(DNI, nomTitular);
-        CuentaBancaria nuevaCuenta = new CuentaBancaria(CuentaBancaria.generarIBAN(respuestaUsuario), nomTitular);
+        
+        Persona titular = crearUsuario();
+        CuentaBancaria nuevaCuenta = new CuentaBancaria(pinSeguridad(), CuentaBancaria.generarIBAN(pais()), titular.getNombre());
         seguir = true;
         while (seguir == true) {
             respuestaUsuario = 8;
@@ -26,7 +21,7 @@ public class LehmanBrothers {
             switch (respuestaUsuario) {
 
                 case 1:
-                    // muestraInfoCuenta(nuevaCuenta, titular);
+                  comprobarPin();
                     muestraInfoCuenta(nuevaCuenta, titular);
                     break;
                 case 2:
@@ -81,17 +76,50 @@ public class LehmanBrothers {
     }
 
     //Metodos
+    public static Persona crearUsuario() {
+        System.out.println("Introduce el nombre del titular");
+        nomTitular = /*sc.nextLine()*/ "Enrique";
+        System.out.println("Introduce el DNI");
+        DNI = /*sc.nextLine()*/ "74015881H";
+
+        Persona titular = new Persona(DNI, nomTitular);
+        
+        return titular;
+    }
+
+    public static int pinSeguridad() {
+        do {
+            System.out.println("Introduce tu PIN de 4 cifras");
+            pin = Integer.parseInt(sc.nextLine());
+            System.out.println("Porfavor, vuelva a Introducir el PIN de 4 cifras");
+            pin2 = Integer.parseInt(sc.nextLine());
+        } while (pin2 != pin);
+
+        System.out.println("pin guardado correctamente.");
+        return pin;
+    }
+
+    public static void comprobarPin() {
+        for (int i = 0; i == 3; i++) {
+            System.out.println("Introduce tu PIN de 4 cifras");
+            pin2 = Integer.parseInt(sc.nextLine());
+            if (pin2 == nuevaCuenta.getPin()) {
+                System.out.println("maquinaaaaaaaaaaaaaaaa");
+            }
+        }
+       
+    }
 //-------------------------------------------------------------------------------------------------------
     // Muestreo de Paises.
-    public static void pais() {
+
+    public static int pais() {
         System.out.println("");
         System.out.println("Selecciona una opción.");
         System.out.println("1. España.");
         System.out.println("2. Andorra.");
         System.out.println("3. Suiza.");
-        respuestaUsuario = Integer.parseInt(sc.nextLine());
-        
- 
+        return eleccionPais = Integer.parseInt(sc.nextLine());
+
     }
 
 //-------------------------------------------------------------------------------------------------------
@@ -422,12 +450,12 @@ public class LehmanBrothers {
             stringRemitente = "Remitente: ", tipoMovimiento, cantidadString = "Cantidad: ";
 
     private static double cantidad = 0;
-    private static int respuestaUsuario = 0, controlMovimiento;
+    private static int respuestaUsuario = 0, controlMovimiento, eleccionPais, pin, pin2;
     private static String DNI;
     private static boolean ibancorrecto = false;
     private static Scanner sc = new Scanner(System.in);
     private static String infoCuenta, pais;
-    private static boolean seguir;
+    private static boolean seguir, salirPin = false;
     private static Persona titular;
     private static CuentaBancaria nuevaCuenta;
 }
