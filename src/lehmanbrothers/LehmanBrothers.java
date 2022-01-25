@@ -177,6 +177,7 @@ public class LehmanBrothers {
 
     }
 
+
 //-------------------------------------------------------------------------------------------------------
 //-------------------------------------------------------------------------------------------------------    
     // Ciudades de los paises
@@ -368,7 +369,7 @@ public class LehmanBrothers {
         concepto = sc.nextLine();
 
         tipoMovimiento = "Ingreso";
-
+// if para comprobar si me han proporcionado los datos correctos.
         Movimientos nuevoIngreso = new Movimientos(tipoMovimiento, cantidad, remitente, concepto);
 
         nuevaCuenta.ingreso(nuevoIngreso);
@@ -412,7 +413,8 @@ public class LehmanBrothers {
 
             System.out.println("Saldo: " + nuevaCuenta.formatoEuros(nuevaCuenta.getSaldo()));
             System.out.println("");
-        }
+        }// falta terminar -------------------------------------------------------------------------------------------------
+        
     }
 // Opcion 4  - Registrar Autorizado.
 

@@ -65,12 +65,13 @@ public class CuentaBancaria {
     }
 
     //Funciones
-    public void ingreso(Movimientos nuevoMovimiento) {
+    public int ingreso(double cantidad , Movimientos nuevoMovimiento) {
+        
         double cantidad = nuevoMovimiento.getCantidad();
         saldo = saldo + cantidad;
 
         historicoMovimientos.add(nuevoMovimiento);
-
+return resultado; //arreglarrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr
     }
 
     public int retirada(Movimientos nuevoMovimiento) {
