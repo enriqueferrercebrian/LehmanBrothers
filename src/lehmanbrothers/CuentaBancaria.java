@@ -19,25 +19,27 @@ public class CuentaBancaria {
     private List<Movimientos> historicoMovimientos;
     private static Set<Persona> autorizados = new HashSet<>();
     private static int controlMovimiento;
-    private static  int pin;
+    private static String pin;
+    private static boolean buenPais = true;
     private static final long IBANMinimo = 0000000001;
     private static final long IBANMaximo = 9999999999L;
 //contructor 
 
 //contructor
-    public CuentaBancaria(int pin, String iban, String nomTitular) {
+    public CuentaBancaria(String pin, String iban, String nomTitular) {
         this.pin = pin;
         this.iban = iban;
         this.nomTitular = nomTitular;
         saldo = 0;
-        
+
         historicoMovimientos = new ArrayList<>();
     }
 
     // Getters
-    public int getPin() {
+    public String getPin() {
         return pin;
     }
+
     public String getIban() {
         return iban;
     }
@@ -134,6 +136,7 @@ public class CuentaBancaria {
     //Generar iban
     public static String generarIBAN(int respuestaUsuario) {
 
+        
         switch (respuestaUsuario) {
 
             case 1:

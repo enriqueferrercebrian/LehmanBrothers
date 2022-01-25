@@ -2,6 +2,7 @@ package lehmanbrothers;
 
 import java.util.Scanner;
 import java.util.List;
+import java.util.regex.Pattern;
 
 /**
  *
@@ -11,13 +12,30 @@ public class LehmanBrothers {
 
     public static void main(String[] args) {
 
+        while (paisCorrecto){
+        try {
+            tmpPais = CuentaBancaria.generarIBAN(pais());
+             paisCorrecto=false;
+        } catch (Exception e) {
+
+            System.out.println("Porfavor, indique numeros del 1 al 3.");
+
+        }
+       
+        }
         Persona titular = crearUsuario();
-        CuentaBancaria nuevaCuenta = new CuentaBancaria(pinSeguridad(), CuentaBancaria.generarIBAN(pais()), titular.getNombre());
+        CuentaBancaria nuevaCuenta = new CuentaBancaria(pinSeguridad(), tmpPais, titular.getNombre());
         seguir = true;
         while (seguir == true) {
             respuestaUsuario = 8;
 
-            menu();
+            try {
+                menu();
+            } catch (Exception e) {
+
+                System.out.println("Porfavor, solo numeros del 0 al 6, Gracias.");
+
+            }
 
             switch (respuestaUsuario) {
 
@@ -25,8 +43,8 @@ public class LehmanBrothers {
                     if (comprobarPin(nuevaCuenta)) {
 
                         muestraInfoCuenta(nuevaCuenta, titular);
-                    }else{
-                    System.out.println("Losiento has fallado");
+                    } else {
+                        System.out.println("Losiento, El pin no es correcto.");
                     }
                     break;
                 case 2:
@@ -36,37 +54,62 @@ public class LehmanBrothers {
 
                 case 3:
 
-                    hacerRetirada(nuevaCuenta);
+                    if (comprobarPin(nuevaCuenta)) {
+
+                        hacerRetirada(nuevaCuenta);
+
+                    } else {
+                        System.out.println("Losiento, El pin no es correcto.");
+                    }
+
                     break;
                 case 4:
 
-                    registrarAutorizado(nuevaCuenta);
+                    if (comprobarPin(nuevaCuenta)) {
+
+                        registrarAutorizado(nuevaCuenta);
+
+                    } else {
+                        System.out.println("Losiento, El pin no es correcto.");
+                    }
+
                     break;
 
                 case 5:
-                    eliminarAutorizado(nuevaCuenta);
+
+                    if (comprobarPin(nuevaCuenta)) {
+
+                        eliminarAutorizado(nuevaCuenta);
+
+                    } else {
+                        System.out.println("Losiento, El pin no es correcto.");
+                    }
+
                     break;
 
                 case 6:
+                    if (comprobarPin(nuevaCuenta)) {
+                        menuHistorialMovimientos();
+                        switch (respuestaUsuario) {
 
-                    menuHistorialMovimientos();
-                    switch (respuestaUsuario) {
+                            case 1:
+                                historialMovimientos(nuevaCuenta);
+                                break;
 
-                        case 1:
-                            historialMovimientos(nuevaCuenta);
-                            break;
+                            case 2:
+                                historialIngresos(nuevaCuenta);
+                                break;
 
-                        case 2:
-                            historialIngresos(nuevaCuenta);
-                            break;
+                            case 3:
+                                historialRetiradas(nuevaCuenta);
+                                break;
 
-                        case 3:
-                            historialRetiradas(nuevaCuenta);
-                            break;
+                            case 4:
+                                break;
 
-                        case 4:
-                            break;
-
+                        }
+                    } else {
+                        System.out.println("Losiento, El pin no es correcto.");
                     }
 
                     break;
@@ -92,26 +135,32 @@ public class LehmanBrothers {
         return titular;
     }
 
-    public static int pinSeguridad() {
+    public static String pinSeguridad() {
+
         do {
+
             System.out.println("Introduce tu PIN de 4 cifras");
-            pin = Integer.parseInt(sc.nextLine());
+            pin = sc.nextLine();
             System.out.println("Porfavor, vuelva a Introducir el PIN de 4 cifras");
-            pin2 = Integer.parseInt(sc.nextLine());
-        } while (pin2 != pin);
+            pin2 = sc.nextLine();
+            if (!pin2.contentEquals(pin)) {
+                System.out.println("porfavor, que sean iguales, repita:");
+            }
+        } while (!pin2.contentEquals(pin));
 
         System.out.println("pin guardado correctamente.");
+
         return pin;
     }
 
     public static boolean comprobarPin(CuentaBancaria nuevaCuenta) {
         for (int i = 0; i < 3; ++i) {
             System.out.println("Introduce tu PIN de 4 cifras");
-            pin2 = Integer.parseInt(sc.nextLine());
-            if (pin2 == nuevaCuenta.getPin()) {
+            pin = sc.nextLine();
+            if (pin.equalsIgnoreCase(nuevaCuenta.getPin())) {
                 return true;
-               
-            } 
+
+            }
         }
         return false;
     }
@@ -456,11 +505,11 @@ public class LehmanBrothers {
             stringRemitente = "Remitente: ", tipoMovimiento, cantidadString = "Cantidad: ";
 
     private static double cantidad = 0;
-    private static int respuestaUsuario = 0, controlMovimiento, eleccionPais, pin, pin2;
-    private static String DNI;
-    private static boolean ibancorrecto = false;
+    private static int respuestaUsuario = 0, controlMovimiento, eleccionPais;
+    private static String DNI, pin = "0", pin2, pinExp = "\\d{4}";
+    private static boolean ibancorrecto = false, paisCorrecto=true;
     private static Scanner sc = new Scanner(System.in);
-    private static String infoCuenta, pais;
+    private static String infoCuenta, pais, tmpPais;
     private static boolean seguir, salirPin = false;
     private static Persona titular;
     private static CuentaBancaria nuevaCuenta;
