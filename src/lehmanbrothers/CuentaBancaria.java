@@ -65,13 +65,19 @@ public class CuentaBancaria {
     }
 
     //Funciones
-    public int ingreso(double cantidad , Movimientos nuevoMovimiento) {
-        
-        double cantidad = nuevoMovimiento.getCantidad();
-        saldo = saldo + cantidad;
+    public int ingresar(double cantidad, Movimientos nuevoMovimiento) {
+        if (cantidad <= 0) {
+            controlMovimiento = 0;
 
-        historicoMovimientos.add(nuevoMovimiento);
-return resultado; //arreglarrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr
+        } else {
+            if (cantidad >= 3000) {
+                controlMovimiento = 1;
+            }
+
+            saldo = saldo + cantidad;
+        }
+
+        return controlMovimiento;
     }
 
     public int retirada(Movimientos nuevoMovimiento) {
@@ -137,7 +143,6 @@ return resultado; //arreglarrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr
     //Generar iban
     public static String generarIBAN(int respuestaUsuario) {
 
-        
         switch (respuestaUsuario) {
 
             case 1:

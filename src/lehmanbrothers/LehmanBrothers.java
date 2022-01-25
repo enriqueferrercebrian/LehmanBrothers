@@ -12,16 +12,16 @@ public class LehmanBrothers {
 
     public static void main(String[] args) {
 
-        while (paisCorrecto){
-        try {
-            tmpPais = CuentaBancaria.generarIBAN(pais());
-             paisCorrecto=false;
-        } catch (Exception e) {
+        while (paisCorrecto) {
+            try {
+                tmpPais = CuentaBancaria.generarIBAN(pais());
+                paisCorrecto = false;
+            } catch (Exception e) {
 
-            System.out.println("Porfavor, indique numeros del 1 al 3.");
+                System.out.println("Porfavor, indique numeros del 1 al 3.");
 
-        }
-       
+            }
+
         }
         Persona titular = crearUsuario();
         CuentaBancaria nuevaCuenta = new CuentaBancaria(pinSeguridad(), tmpPais, titular.getNombre());
@@ -176,7 +176,6 @@ public class LehmanBrothers {
         return eleccionPais = Integer.parseInt(sc.nextLine());
 
     }
-
 
 //-------------------------------------------------------------------------------------------------------
 //-------------------------------------------------------------------------------------------------------    
@@ -369,23 +368,24 @@ public class LehmanBrothers {
         concepto = sc.nextLine();
 
         tipoMovimiento = "Ingreso";
-// if para comprobar si me han proporcionado los datos correctos.
+
+        // comprobamos si nos mete una cantidad correcta.
         Movimientos nuevoIngreso = new Movimientos(tipoMovimiento, cantidad, remitente, concepto);
 
-        nuevaCuenta.ingreso(nuevoIngreso);
-        String resultadoDelIngreso = "*Ingreso realizado con éxito*" + "\n";
-        if (cantidad >= 3000) {
-            resultadoDelIngreso = resultadoDelIngreso + "\n" + "Aviso, notificacion a hacienda";
-        } else if (cantidad <= 0) {
-            resultadoDelIngreso = "Introduzca un importe igual o superior a 0\n";
+        switch (nuevaCuenta.ingresar(cantidad, nuevoIngreso)) {
+            case 0:
+                System.out.println("\n Introduzca un importe igual o superior a 0 \n");
+                break;
+            case 1:
+                System.out.println("\n Aviso, notificacion a hacienda \n");
+            default:
+                String resultadoDelIngreso = "*Ingreso realizado con éxito*" + "\n";
+                System.out.println("Se han ingresado: " + nuevaCuenta.formatoEuros(cantidad) + "\n");
+                System.out.println("Saldo: " + nuevaCuenta.formatoEuros(nuevaCuenta.getSaldo()));
+
         }
-        System.out.println("");
-        System.out.println(resultadoDelIngreso);
-        if (cantidad > 0) {
-            System.out.println("Se han ingresado: " + nuevaCuenta.formatoEuros(cantidad) + "\n");
-        }
-        System.out.println("Saldo: " + nuevaCuenta.formatoEuros(nuevaCuenta.getSaldo()));
-        System.out.println("");
+
+        
 
     }
 // Opcion 3  - Hacer una Retirada.
@@ -414,7 +414,7 @@ public class LehmanBrothers {
             System.out.println("Saldo: " + nuevaCuenta.formatoEuros(nuevaCuenta.getSaldo()));
             System.out.println("");
         }// falta terminar -------------------------------------------------------------------------------------------------
-        
+
     }
 // Opcion 4  - Registrar Autorizado.
 
@@ -509,7 +509,7 @@ public class LehmanBrothers {
     private static double cantidad = 0;
     private static int respuestaUsuario = 0, controlMovimiento, eleccionPais;
     private static String DNI, pin = "0", pin2, pinExp = "\\d{4}";
-    private static boolean ibancorrecto = false, paisCorrecto=true;
+    private static boolean ibancorrecto = false, paisCorrecto = true;
     private static Scanner sc = new Scanner(System.in);
     private static String infoCuenta, pais, tmpPais;
     private static boolean seguir, salirPin = false;
