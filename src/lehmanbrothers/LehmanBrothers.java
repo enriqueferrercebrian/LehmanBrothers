@@ -367,7 +367,7 @@ public class LehmanBrothers {
 
         tipoMovimiento = "Ingreso";
 
-        switch (nuevaCuenta.ingresar(cantidad, remitente, concepto, tipoMovimiento )) {
+        switch (nuevaCuenta.ingresar(cantidad, remitente, concepto, tipoMovimiento)) {
             case -1:
                 System.out.println("\n Introduzca un importe igual o superior a 0 \n");
                 System.out.println("\n *Ingreso cancelado* \n");
@@ -401,32 +401,42 @@ public class LehmanBrothers {
 
         tipoMovimiento = "Retirada";
 
-        Movimientos nuevaRetirada = new Movimientos(tipoMovimiento, cantidad, remitente, concepto);
-
-        
-         switch (nuevaCuenta.retirada(cantidad, remitente, concepto, tipoMovimiento )) {
-            case -1:
-                System.out.println("\n Aviso, Saldo negativo\n");
-                System.out.println("\n *Ingreso cancelado* \n");
-                break;
-            case 0:
+        if (cantidad >= 0) {
+            if ((nuevaCuenta.getSaldo() - cantidad) < SALDO_MINIMO) {
+                System.out.println("No se permite tener un saldo por debajo de -50\n");
+            } else {
+                if (nuevaCuenta.getSaldo() - cantidad < 0) {
+                    System.out.println(AVISO_NEGATIVO + " " + nuevaCuenta.getSaldo());
+                }
+                if (cantidad >= MOVIMIENTO_GRANDE) {
+                    System.out.println(AVISO_HACIENDA);
+                }
+               
+                nuevaCuenta.retirada(cantidad, remitente, concepto, tipoMovimiento);
                 System.out.println("*Retirada realizada con éxito*\n");
-                System.out.println("Se han retirado: " + nuevaCuenta.formatoEuros(cantidad) + "\n");
-                System.out.println("Saldo: " + nuevaCuenta.formatoEuros(nuevaCuenta.getSaldo()));
-                break;
-            case 1:
-                System.out.println("\nAviso, notificacion a hacienda \n");
-                System.out.println("*Retirada realizada con éxito*\n");
-                System.out.println("Se han retirado: " + nuevaCuenta.formatoEuros(cantidad) + "\n");
-                System.out.println("Saldo: " + nuevaCuenta.formatoEuros(nuevaCuenta.getSaldo()));
-                break;
+            }
+        } else {
+            System.out.println("Introduzca un importe igual o superior a 0\n");
 
         }
-        
-        
-        
-       
+//        
+//            case -1:
+//                System.out.println("\n Aviso, Saldo negativo\n");
+//                System.out.println("\n *Ingreso cancelado* \n");
+//                break;
+//            case 0:
+//                System.out.println("*Retirada realizada con éxito*\n");
+//                System.out.println("Se han retirado: " + nuevaCuenta.formatoEuros(cantidad) + "\n");
+//                System.out.println("Saldo: " + nuevaCuenta.formatoEuros(nuevaCuenta.getSaldo()));
+//                break;
+//            case 1:
+//                System.out.println("\nAviso, notificacion a hacienda \n");
+//                System.out.println("*Retirada realizada con éxito*\n");
+//                System.out.println("Se han retirado: " + nuevaCuenta.formatoEuros(cantidad) + "\n");
+//                System.out.println("Saldo: " + nuevaCuenta.formatoEuros(nuevaCuenta.getSaldo()));
+//                break;
 
+//        }
     }
 // Opcion 4  - Registrar Autorizado.
 
@@ -527,4 +537,6 @@ public class LehmanBrothers {
     private static boolean seguir, salirPin = false;
     private static Persona titular;
     private static CuentaBancaria nuevaCuenta;
+    private static int SALDO_MINIMO = -50, MOVIMIENTO_GRANDE = 3000;
+    private static String AVISO_HACIENDA = "\nAviso, notificacion a hacienda \n", AVISO_NEGATIVO = "\nAviso, Tiene un descubierto en la cuenta \n de";
 }

@@ -89,23 +89,14 @@ public class CuentaBancaria {
     }
 
     public int retirada(double cantidad, String remitente, String concepto, String tipoMovimiento) {
-        if ((saldo - cantidad) > -50) {
-
-            if (cantidad >= 3000) {
-
-                controlMovimiento = 1;
-            } else {
-                controlMovimiento = 0;
-
-            }
-            saldo = saldo - cantidad;
-        } else {
+        
+            saldo = getSaldo() - cantidad;
             controlMovimiento = -1;
 
-        }
+        
         Movimientos nuevaRetirada = new Movimientos(tipoMovimiento, cantidad, remitente, concepto);
         historicoMovimientos.add(nuevaRetirada);
-        return controlMovimiento;
+        return (int) saldo;
     }
 
     // Seccion de autorizados en la cuenta
