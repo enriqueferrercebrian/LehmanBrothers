@@ -89,11 +89,10 @@ public class CuentaBancaria {
     }
 
     public int retirada(double cantidad, String remitente, String concepto, String tipoMovimiento) {
-        
-            saldo = getSaldo() - cantidad;
-            controlMovimiento = -1;
 
-        
+        saldo = getSaldo() - cantidad;
+        controlMovimiento = -1;
+
         Movimientos nuevaRetirada = new Movimientos(tipoMovimiento, cantidad, remitente, concepto);
         historicoMovimientos.add(nuevaRetirada);
         return (int) saldo;

@@ -420,23 +420,7 @@ public class LehmanBrothers {
 
         }
 //        
-//            case -1:
-//                System.out.println("\n Aviso, Saldo negativo\n");
-//                System.out.println("\n *Ingreso cancelado* \n");
-//                break;
-//            case 0:
-//                System.out.println("*Retirada realizada con éxito*\n");
-//                System.out.println("Se han retirado: " + nuevaCuenta.formatoEuros(cantidad) + "\n");
-//                System.out.println("Saldo: " + nuevaCuenta.formatoEuros(nuevaCuenta.getSaldo()));
-//                break;
-//            case 1:
-//                System.out.println("\nAviso, notificacion a hacienda \n");
-//                System.out.println("*Retirada realizada con éxito*\n");
-//                System.out.println("Se han retirado: " + nuevaCuenta.formatoEuros(cantidad) + "\n");
-//                System.out.println("Saldo: " + nuevaCuenta.formatoEuros(nuevaCuenta.getSaldo()));
-//                break;
-
-//        }
+//       
     }
 // Opcion 4  - Registrar Autorizado.
 
