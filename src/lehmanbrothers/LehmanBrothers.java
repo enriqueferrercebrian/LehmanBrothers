@@ -140,9 +140,9 @@ public class LehmanBrothers {
         do {
 
             System.out.println("Introduce tu PIN de 4 cifras");
-            pin = sc.nextLine();
+            pin = /*sc.nextLine()*/ "1";
             System.out.println("Porfavor, vuelva a Introducir el PIN de 4 cifras");
-            pin2 = sc.nextLine();
+            pin2 = /*sc.nextLine()*/ "1";
             if (!pin2.contentEquals(pin)) {
                 System.out.println("porfavor, que sean iguales, repita:");
             }
@@ -173,7 +173,7 @@ public class LehmanBrothers {
         System.out.println("1. España.");
         System.out.println("2. Andorra.");
         System.out.println("3. Suiza.");
-        return eleccionPais = Integer.parseInt(sc.nextLine());
+        return eleccionPais = /*Integer.parseInt(sc.nextLine())*/ 1;
 
     }
 
@@ -186,7 +186,7 @@ public class LehmanBrothers {
         System.out.println("1. Madrid.");
         System.out.println("2. Barcelona.");
         System.out.println("3. Valencia.");
-        return respuestaUsuario = Integer.parseInt(sc.nextLine());
+        return respuestaUsuario = /*Integer.parseInt(sc.nextLine())*/ 1;
 
     }
 
@@ -196,7 +196,7 @@ public class LehmanBrothers {
         System.out.println("1. Andorra La Vella.");
         System.out.println("2. Escaldes-Engordany.");
         System.out.println("3. Encamp.");
-        return respuestaUsuario = Integer.parseInt(sc.nextLine());
+        return respuestaUsuario = /*Integer.parseInt(sc.nextLine())*/ 1;
 
     }
 
@@ -206,7 +206,7 @@ public class LehmanBrothers {
         System.out.println("1. Zurich.");
         System.out.println("2. Ginebra.");
         System.out.println("3. Basilea.");
-        return respuestaUsuario = Integer.parseInt(sc.nextLine());
+        return respuestaUsuario = /*Integer.parseInt(sc.nextLine())*/ 1;
 
     }
 //-------------------------------------------------------------------------------------------------------
@@ -221,7 +221,7 @@ public class LehmanBrothers {
         System.out.println("1. Calle Ensanche.");
         System.out.println("2. Puerta del Sol.");
         System.out.println("3. El Retiro.");
-        return respuestaUsuario = Integer.parseInt(sc.nextLine());
+        return respuestaUsuario = /*Integer.parseInt(sc.nextLine())*/ 1;
 
     }
 
@@ -231,8 +231,7 @@ public class LehmanBrothers {
         System.out.println("1. Calle Perico.");
         System.out.println("2. Calle Santa Maria.");
         System.out.println("3. Plaza España.");
-        return respuestaUsuario = Integer.parseInt(sc.nextLine());
-
+        return respuestaUsuario = /*Integer.parseInt(sc.nextLine())*/ 1;
     }
 
     public static int oficinasValencia() {
@@ -241,7 +240,7 @@ public class LehmanBrothers {
         System.out.println("1. Calle Islas Baleares.");
         System.out.println("2. Avenida Francia.");
         System.out.println("3. Calle Xativa.");
-        return respuestaUsuario = Integer.parseInt(sc.nextLine());
+        return respuestaUsuario = /*Integer.parseInt(sc.nextLine())*/ 1;
 
     }
     // Oficinas Andorra
@@ -252,7 +251,7 @@ public class LehmanBrothers {
         System.out.println("1. Calle Contador.");
         System.out.println("2. Calle Libra.");
         System.out.println("3. Avenida Principal.");
-        return respuestaUsuario = Integer.parseInt(sc.nextLine());
+        return respuestaUsuario = /*Integer.parseInt(sc.nextLine())*/ 1;
 
     }
 
@@ -262,7 +261,7 @@ public class LehmanBrothers {
         System.out.println("1. Calle Libertad.");
         System.out.println("2. Calle Gabriel Miro.");
         System.out.println("3. Plaza Iglesia.");
-        return respuestaUsuario = Integer.parseInt(sc.nextLine());
+        return respuestaUsuario = /*Integer.parseInt(sc.nextLine())*/ 1;
 
     }
 
@@ -272,7 +271,7 @@ public class LehmanBrothers {
         System.out.println("1. Calle Italia.");
         System.out.println("2. Calle Limbo.");
         System.out.println("3. Calle Dinamarca.");
-        return respuestaUsuario = Integer.parseInt(sc.nextLine());
+        return respuestaUsuario = /*Integer.parseInt(sc.nextLine())*/ 1;
 
     }
     // Oficinas Suiza
@@ -283,7 +282,7 @@ public class LehmanBrothers {
         System.out.println("1. Bahnhofstrasse.");
         System.out.println("2. Seefeldquai.");
         System.out.println("3. Niederdorf.");
-        return respuestaUsuario = Integer.parseInt(sc.nextLine());
+        return respuestaUsuario = /*Integer.parseInt(sc.nextLine())*/ 1;
 
     }
 
@@ -293,7 +292,7 @@ public class LehmanBrothers {
         System.out.println("1. Calle Purgatorio.");
         System.out.println("2. Calle Cruz De Oro.");
         System.out.println("3. Calle Todas Las Almas.");
-        return respuestaUsuario = Integer.parseInt(sc.nextLine());
+        return respuestaUsuario = /*Integer.parseInt(sc.nextLine())*/ 1;
 
     }
 
@@ -303,7 +302,7 @@ public class LehmanBrothers {
         System.out.println("1. Heuberg.");
         System.out.println("2. Kornhausgasse.");
         System.out.println("3. Missionsstrasse.");
-        return respuestaUsuario = Integer.parseInt(sc.nextLine());
+        return respuestaUsuario = /*Integer.parseInt(sc.nextLine())*/ 1;
 
     }
 //-------------------------------------------------------------------------------------------------------
@@ -331,8 +330,7 @@ public class LehmanBrothers {
         System.out.println("2. Muestrame todos los ingreso.");
         System.out.println("3. Muestrame todas las retiradas.");
         System.out.println("4. Atras.");
-        return respuestaUsuario = Integer.parseInt(sc.nextLine());
-
+        return respuestaUsuario = /*Integer.parseInt(sc.nextLine())*/ 1;
     }
 // Opcion 1 - muestra info de la cuenta.
 
@@ -369,30 +367,29 @@ public class LehmanBrothers {
 
         tipoMovimiento = "Ingreso";
 
-        // comprobamos si nos mete una cantidad correcta.
-        Movimientos nuevoIngreso = new Movimientos(tipoMovimiento, cantidad, remitente, concepto);
-
-        switch (nuevaCuenta.ingresar(cantidad, nuevoIngreso)) {
-            case 0:
+        switch (nuevaCuenta.ingresar(cantidad, remitente, concepto, tipoMovimiento )) {
+            case -1:
                 System.out.println("\n Introduzca un importe igual o superior a 0 \n");
+                System.out.println("\n *Ingreso cancelado* \n");
                 break;
-            case 1:
-                System.out.println("\n Aviso, notificacion a hacienda \n");
-            default:
-                String resultadoDelIngreso = "*Ingreso realizado con éxito*" + "\n";
+            case 0:
+                System.out.println("*Ingreso realizado con éxito*" + "\n");
                 System.out.println("Se han ingresado: " + nuevaCuenta.formatoEuros(cantidad) + "\n");
                 System.out.println("Saldo: " + nuevaCuenta.formatoEuros(nuevaCuenta.getSaldo()));
+                break;
+            case 1:
+                System.out.println("\nAviso, notificacion a hacienda \n");
+                System.out.println("*Ingreso realizado con éxito*" + "\n");
+                System.out.println("Se han ingresado: " + nuevaCuenta.formatoEuros(cantidad) + "\n");
+                System.out.println("Saldo: " + nuevaCuenta.formatoEuros(nuevaCuenta.getSaldo()));
+                break;
 
         }
-
-        
 
     }
 // Opcion 3  - Hacer una Retirada.
 
     public static void hacerRetirada(CuentaBancaria nuevaCuenta) {
-        controlMovimiento = 0;
-
         System.out.println("Cantidad retirada: ");
         cantidad = Double.parseDouble(sc.nextLine());
 
@@ -406,14 +403,29 @@ public class LehmanBrothers {
 
         Movimientos nuevaRetirada = new Movimientos(tipoMovimiento, cantidad, remitente, concepto);
 
-        if (nuevaCuenta.retirada(nuevaRetirada) == 1) {
-            System.out.println("\n" + "*Retirada realizada con éxito*" + "\n");
+        
+         switch (nuevaCuenta.retirada(cantidad, remitente, concepto, tipoMovimiento )) {
+            case -1:
+                System.out.println("\n Aviso, Saldo negativo\n");
+                System.out.println("\n *Ingreso cancelado* \n");
+                break;
+            case 0:
+                System.out.println("*Retirada realizada con éxito*\n");
+                System.out.println("Se han retirado: " + nuevaCuenta.formatoEuros(cantidad) + "\n");
+                System.out.println("Saldo: " + nuevaCuenta.formatoEuros(nuevaCuenta.getSaldo()));
+                break;
+            case 1:
+                System.out.println("\nAviso, notificacion a hacienda \n");
+                System.out.println("*Retirada realizada con éxito*\n");
+                System.out.println("Se han retirado: " + nuevaCuenta.formatoEuros(cantidad) + "\n");
+                System.out.println("Saldo: " + nuevaCuenta.formatoEuros(nuevaCuenta.getSaldo()));
+                break;
 
-            System.out.println("Se han retirado: " + nuevaCuenta.formatoEuros(cantidad) + "\n");
-
-            System.out.println("Saldo: " + nuevaCuenta.formatoEuros(nuevaCuenta.getSaldo()));
-            System.out.println("");
-        }// falta terminar -------------------------------------------------------------------------------------------------
+        }
+        
+        
+        
+       
 
     }
 // Opcion 4  - Registrar Autorizado.

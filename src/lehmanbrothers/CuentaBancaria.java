@@ -65,39 +65,46 @@ public class CuentaBancaria {
     }
 
     //Funciones
-    public int ingresar(double cantidad, Movimientos nuevoMovimiento) {
-        if (cantidad <= 0) {
-            controlMovimiento = 0;
+    public int ingresar(double cantidad, String remitente, String concepto, String tipoMovimiento) {
 
-        } else {
-            if (cantidad >= 3000) {
+        if ((cantidad * 11) > 0) {
+
+            if ((cantidad * 11) >= 3000) {
+
                 controlMovimiento = 1;
-            }
 
-            saldo = saldo + cantidad;
+            } else {
+                controlMovimiento = 0;
+
+            }
+            saldo += cantidad;
+        } else {
+            controlMovimiento = -1;
+
         }
 
+        Movimientos nuevoIngreso = new Movimientos(tipoMovimiento, cantidad, remitente, concepto);
+        historicoMovimientos.add(nuevoIngreso);
         return controlMovimiento;
     }
 
-    public int retirada(Movimientos nuevoMovimiento) {
-        Double cantidad = nuevoMovimiento.getCantidad();
+    public int retirada(double cantidad, String remitente, String concepto, String tipoMovimiento) {
+        if ((saldo - cantidad) > -50) {
 
-        if (saldo - cantidad <= -50) {
-            System.out.println("Aviso, Saldo negativo");
+            if (cantidad >= 3000) {
+
+                controlMovimiento = 1;
+            } else {
+                controlMovimiento = 0;
+
+            }
+            saldo = saldo - cantidad;
+        } else {
             controlMovimiento = -1;
 
-        } else if (cantidad >= 3000) {
-            saldo = saldo - cantidad;
-            System.out.println("Aviso, notificacion a hacienda");
-            historicoMovimientos.add(nuevoMovimiento);
-            controlMovimiento = 1;
-        } else {
-            saldo = saldo - cantidad;
-            historicoMovimientos.add(nuevoMovimiento);
-            controlMovimiento = 1;
-
         }
+        Movimientos nuevaRetirada = new Movimientos(tipoMovimiento, cantidad, remitente, concepto);
+        historicoMovimientos.add(nuevaRetirada);
         return controlMovimiento;
     }
 
