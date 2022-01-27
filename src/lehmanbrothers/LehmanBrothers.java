@@ -2,6 +2,7 @@ package lehmanbrothers;
 
 import java.util.Scanner;
 import java.util.List;
+import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
@@ -50,7 +51,7 @@ public class LehmanBrothers {
 
                         if (comprobarPin(nuevaCuenta)) {
 
-                            registrarAutorizado(nuevaCuenta , autorizadoDNI);
+                            registrarAutorizado(nuevaCuenta, autorizadoDNI);
 
                         } else {
                             System.out.println("Losiento, El pin no es correcto.");
@@ -201,7 +202,6 @@ public class LehmanBrothers {
 
                 checkDNI = true;
             } else {
-                System.out.println("novaaa");
             }
 
         }
@@ -474,11 +474,24 @@ public class LehmanBrothers {
 // Opcion 4  - Registrar Autorizado.
 
     public static String registrarAutorizado(CuentaBancaria nuevaCuenta, String autorizadoDNI) {
-        System.out.println("Indique el DNI del nuevo autorizado: ");
-        autorizadoDNI = sc.nextLine();
+        checkDNI = true;
+        while (checkDNI) {
+            System.out.println("Indique el DNI del nuevo autorizado: ");
+            autorizadoDNI = sc.nextLine();
+            Matcher mat = patronDNI.matcher(autorizadoDNI);
+            if (mat.matches()) {
+                comprobarDni(autorizadoDNI);
+                checkDNI = false;
+            } else {
+                System.out.println("Indique un DNI correcto.");
+            }
+
+        }
+
         System.out.println("Indique el nombre del nuevo autorizado: ");
         autorizadoNombre = sc.nextLine();
-        if (nuevaCuenta.autorizar(comprobarDni(autorizadoDNI), autorizadoNombre)) {
+
+        if (nuevaCuenta.autorizar(autorizadoDNI, autorizadoNombre)) {
             System.out.println("El nuevo autorizado se ha añadido correctamente");
             System.out.println("En esta cuenta hay " + (nuevaCuenta.getAutorizados().size()) + " personas autorizadas.\n");
         } else {
@@ -762,6 +775,8 @@ public class LehmanBrothers {
     private static final long IBANMinimo = 0000000001;
     private static final long IBANMaximo = 9999999999L;
     private static String codPais, codCiudad, codDir, ibanRandom;
+    private static Pattern patronDNI = Pattern.compile("[0-9]{7,8}[A-Z a-z]");
+
     private static String[] asignacionLetra = {"T", "R", "W", "A", "G", "M", "Y", "F", "P", "D", "X", "B", "N", "J", "Z", "S", "Q", "V", "H", "L", "C", "K", "E"};
 
 }
