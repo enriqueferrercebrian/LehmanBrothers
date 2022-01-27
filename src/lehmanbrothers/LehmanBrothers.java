@@ -503,10 +503,23 @@ public class LehmanBrothers {
 
     public static void eliminarAutorizado(CuentaBancaria nuevaCuenta) {
 
-        if (nuevaCuenta.getAutorizados().size() > 1) {
-            System.out.println("Indique el DNI de la persona que quiere eliminar: ");
-            String autorizadoDNI = sc.nextLine();
+        if (nuevaCuenta.getAutorizados().size() >= 1) {
 
+            checkDNI = true;
+            while (checkDNI) {
+                System.out.println("Indique el DNI de la persona que quiere eliminar: ");
+                autorizadoDNI = sc.nextLine();
+                Matcher mat = patronDNI.matcher(autorizadoDNI);
+                if (mat.matches()) {
+                    comprobarDni(autorizadoDNI);
+                    checkDNI = false;
+                } else {
+                    System.out.println("Indique un DNI correcto.");
+                    String autorizadoDNI = sc.nextLine();
+
+                }
+
+            }
             if (nuevaCuenta.quitarAutorizado(autorizadoDNI)) {
                 System.out.println("La persona autorizada se ha eliminado correctamente.");
                 System.out.println("En esta cuenta hay " + (nuevaCuenta.getAutorizados().size()) + " personas autorizadas.\n");
