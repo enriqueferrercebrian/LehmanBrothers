@@ -16,90 +16,94 @@ public class LehmanBrothers {
         CuentaBancaria nuevaCuenta = new CuentaBancaria(pinSeguridad(), seleccionPais(), titular.getNombre());
 
         while (seguir) {
+            try {
 
-            menu();
+                menu();
 
-            switch (respuestaUsuario) {
+                switch (respuestaUsuario) {
 
-                case 1:
-                    if (comprobarPin(nuevaCuenta)) {
+                    case 1:
+                        if (comprobarPin(nuevaCuenta)) {
 
-                        muestraInfoCuenta(nuevaCuenta, titular);
-                    } else {
-                        System.out.println("Losiento, El pin no es correcto.");
-                    }
-                    break;
-                case 2:
-
-                    hacerIngreso(nuevaCuenta);
-                    break;
-
-                case 3:
-
-                    if (comprobarPin(nuevaCuenta)) {
-
-                        hacerRetirada(nuevaCuenta);
-
-                    } else {
-                        System.out.println("Losiento, El pin no es correcto.");
-                    }
-
-                    break;
-                case 4:
-
-                    if (comprobarPin(nuevaCuenta)) {
-
-                        registrarAutorizado(nuevaCuenta);
-
-                    } else {
-                        System.out.println("Losiento, El pin no es correcto.");
-                    }
-
-                    break;
-
-                case 5:
-
-                    if (comprobarPin(nuevaCuenta)) {
-
-                        eliminarAutorizado(nuevaCuenta);
-
-                    } else {
-                        System.out.println("Losiento, El pin no es correcto.");
-                    }
-
-                    break;
-
-                case 6:
-                    if (comprobarPin(nuevaCuenta)) {
-                        menuHistorialMovimientos();
-                        switch (respuestaUsuario) {
-
-                            case 1:
-                                historialMovimientos(nuevaCuenta);
-                                break;
-
-                            case 2:
-                                historialIngresos(nuevaCuenta);
-                                break;
-
-                            case 3:
-                                historialRetiradas(nuevaCuenta);
-                                break;
-
-                            case 4:
-                                break;
-
+                            muestraInfoCuenta(nuevaCuenta, titular);
+                        } else {
+                            System.out.println("Losiento, El pin no es correcto.");
                         }
-                    } else {
-                        System.out.println("Losiento, El pin no es correcto.");
-                    }
+                        break;
+                    case 2:
 
-                    break;
+                        hacerIngreso(nuevaCuenta);
+                        break;
 
-                case 0:
-                    System.out.println("Gracias por confiar en nosotros");
-                    seguir = false;
-                    break;
+                    case 3:
+
+                        if (comprobarPin(nuevaCuenta)) {
+
+                            hacerRetirada(nuevaCuenta);
+
+                        } else {
+                            System.out.println("Losiento, El pin no es correcto.");
+                        }
+
+                        break;
+                    case 4:
+
+                        if (comprobarPin(nuevaCuenta)) {
+
+                            registrarAutorizado(nuevaCuenta , autorizadoDNI);
+
+                        } else {
+                            System.out.println("Losiento, El pin no es correcto.");
+                        }
+
+                        break;
+
+                    case 5:
+
+                        if (comprobarPin(nuevaCuenta)) {
+
+                            eliminarAutorizado(nuevaCuenta);
+
+                        } else {
+                            System.out.println("Losiento, El pin no es correcto.");
+                        }
+
+                        break;
+
+                    case 6:
+                        if (comprobarPin(nuevaCuenta)) {
+                            menuHistorialMovimientos();
+                            switch (respuestaUsuario) {
+
+                                case 1:
+                                    historialMovimientos(nuevaCuenta);
+                                    break;
+
+                                case 2:
+                                    historialIngresos(nuevaCuenta);
+                                    break;
+
+                                case 3:
+                                    historialRetiradas(nuevaCuenta);
+                                    break;
+
+                                case 4:
+                                    break;
+
+                            }
+                        } else {
+                            System.out.println("Losiento, El pin no es correcto.");
+                        }
+
+                        break;
+
+                    case 0:
+                        System.out.println("Gracias por confiar en nosotros");
+                        seguir = false;
+                        break;
+                }
+            } catch (Exception e) {
+                System.out.println("\n-----------------------\nPorfavor, Solo digitos.\n-----------------------");
             }
 
         }
@@ -125,7 +129,7 @@ public class LehmanBrothers {
         System.out.println("Introduce el DNI");
         DNI = /*sc.nextLine()*/ "74015881H";
 
-        Persona titular = new Persona(DNI, nomTitular);
+        Persona titular = new Persona(comprobarDni(DNI), nomTitular);
 
         return titular;
     }
@@ -135,29 +139,74 @@ public class LehmanBrothers {
         do {
 
             System.out.println("Introduce tu PIN de 4 cifras");
-            pin = /*sc.nextLine()*/ "1";
-            System.out.println("Porfavor, vuelva a Introducir el PIN de 4 cifras");
-            pin2 = /*sc.nextLine()*/ "1";
-            if (!pin2.contentEquals(pin)) {
-                System.out.println("porfavor, que sean iguales, repita:");
+            pin = sc.nextLine() /*"1919"*/;
+
+            if (pin.matches("[0-9]*") && pin.length() == 4) {
+
+                System.out.println("Porfavor, vuelva a Introducir el PIN de 4 cifras");
+                pin2 = sc.nextLine() /*"1919"*/;
+
+                if ((pin2.matches("[0-9]*") && pin2.length() == 4)) {
+                    if (!pin2.contentEquals(pin)) {
+                        System.out.println("porfavor, que sean iguales, repita:");
+                    }
+                } else {
+                    System.out.println("Porfavor, Indique un Pin de 4 digitos numericos.\n------------------------------------------------");
+                    pin2 = "00000";
+                }
+
+            } else {
+                System.out.println("Porfavor, Indique un Pin de 4 digitos numericos.\n------------------------------------------------");
+
             }
+
         } while (!pin2.contentEquals(pin));
 
         System.out.println("pin guardado correctamente.");
 
         return pin;
+
     }
 
     public static boolean comprobarPin(CuentaBancaria nuevaCuenta) {
+
         for (int i = 0; i < 3; ++i) {
             System.out.println("Introduce tu PIN de 4 cifras");
             pin = sc.nextLine();
-            if (pin.equalsIgnoreCase(nuevaCuenta.getPin())) {
-                return true;
 
+            if (pin.matches("[0-9]*") && pin.length() == 4) {
+
+                if (pin.equalsIgnoreCase(nuevaCuenta.getPin())) {
+                    return true;
+                }
+            } else {
+                System.out.println("Porfavor, Indique un Pin de 4 digitos numericos.\n------------------------------------------------");
+                System.out.println("Intento: " + (i + 1) + " de 3. \n");
             }
         }
         return false;
+    }
+
+    public static String comprobarDni(String DNI) {
+
+        while (!checkDNI) {
+
+            numDNI = Integer.parseInt(DNI.substring(0, 8));
+
+            resto = numDNI % 23;
+
+            letraDNI = asignacionLetra[resto];
+
+            if (DNI.substring(8).equalsIgnoreCase(letraDNI)) {
+
+                checkDNI = true;
+            } else {
+                System.out.println("novaaa");
+            }
+
+        }
+        return DNI;
+
     }
 //-------------------------------------------------------------------------------------------------------
     // Muestreo de Paises.
@@ -332,9 +381,9 @@ public class LehmanBrothers {
     public static void muestraInfoCuenta(CuentaBancaria nuevaCuenta, Persona Titular) {
 
         infoCuenta = "\n--------------------------------------------------------" + "\n" + nuevaCuenta.getIban() + " " + nuevaCuenta.getNomTitular()
-                + " " + "| Saldo: " + nuevaCuenta.formatoEuros(nuevaCuenta.getSaldo()) + "\n\n";
+                + " " + "| Saldo: " + nuevaCuenta.formatoEuros(nuevaCuenta.getSaldo()) + "\n" + "--------------------------------------------------------";
 
-        if (nuevaCuenta.getAutorizados().size() > 1) {
+        if (nuevaCuenta.getAutorizados().size() >= 1) {
 
             infoCuenta = infoCuenta + "\n" + "Personas autorizadas: ";
 
@@ -397,10 +446,14 @@ public class LehmanBrothers {
 
         if (cantidad >= 0) {
             if ((nuevaCuenta.getSaldo() - cantidad) < SALDO_MINIMO) {
-                System.out.println("No se permite tener un saldo por debajo de -50\n");
+                System.out.println("\n No se permite tener un saldo por debajo de -50\n");
+                System.out.println("*Retirada cancelada.*\n");
+
             } else {
                 if (nuevaCuenta.getSaldo() - cantidad < 0) {
-                    System.out.println(AVISO_NEGATIVO + " " + nuevaCuenta.getSaldo());
+                    System.out.println(AVISO_NEGATIVO);
+                    System.out.println("Se han ingresado: " + nuevaCuenta.formatoEuros(cantidad) + "\n");
+                    System.out.println("Saldo: " + nuevaCuenta.formatoEuros(nuevaCuenta.getSaldo()));
                 }
                 if (cantidad >= MOVIMIENTO_GRANDE) {
                     System.out.println(AVISO_HACIENDA);
@@ -408,6 +461,8 @@ public class LehmanBrothers {
 
                 nuevaCuenta.retirada(cantidad, remitente, concepto, tipoMovimiento);
                 System.out.println("*Retirada realizada con éxito*\n");
+                System.out.println("Se han retirado: " + nuevaCuenta.formatoEuros(cantidad) + "\n");
+                System.out.println("Saldo: " + nuevaCuenta.formatoEuros(nuevaCuenta.getSaldo()));
             }
         } else {
             System.out.println("Introduzca un importe igual o superior a 0\n");
@@ -418,19 +473,18 @@ public class LehmanBrothers {
     }
 // Opcion 4  - Registrar Autorizado.
 
-    public static void registrarAutorizado(CuentaBancaria nuevaCuenta) {
-        String autorizadoDNI, autorizadoNombre;
+    public static String registrarAutorizado(CuentaBancaria nuevaCuenta, String autorizadoDNI) {
         System.out.println("Indique el DNI del nuevo autorizado: ");
         autorizadoDNI = sc.nextLine();
         System.out.println("Indique el nombre del nuevo autorizado: ");
         autorizadoNombre = sc.nextLine();
-        if (nuevaCuenta.autorizar(autorizadoDNI, autorizadoNombre)) {
+        if (nuevaCuenta.autorizar(comprobarDni(autorizadoDNI), autorizadoNombre)) {
             System.out.println("El nuevo autorizado se ha añadido correctamente");
             System.out.println("En esta cuenta hay " + (nuevaCuenta.getAutorizados().size()) + " personas autorizadas.\n");
         } else {
             System.out.println("Este autorizado ya existe en esta cuenta.");
         }
-
+        return autorizadoDNI;
     }
 // Opcion 5  - Eliminar Autorizado.
 
@@ -694,18 +748,20 @@ public class LehmanBrothers {
             stringRemitente = "Remitente: ", tipoMovimiento, cantidadString = "Cantidad: ";
 
     private static double cantidad = 0;
-    private static int respuestaUsuario = 8, controlMovimiento, eleccionPais;
-    private static String DNI, pin = "0", pin2, pinExp = "\\d{4}";
-    private static boolean ibancorrecto = false, paisCorrecto = true;
+    private static int respuestaUsuario = 8, controlMovimiento, eleccionPais, numDNI, resto = 0;
+    private static String DNI, pin = "0", pin2 = "0", pinExp = "\\d{4}", letraDNI = "";
+    private static boolean ibancorrecto = false, paisCorrecto = true, checkDNI = false;
     private static Scanner sc = new Scanner(System.in);
-    private static String infoCuenta, pais, tmpPais;
+    private static String infoCuenta, pais, tmpPais, autorizadoDNI, autorizadoNombre;
+    ;
     private static boolean seguir = true, salirPin = false;
     private static Persona titular;
     private static CuentaBancaria nuevaCuenta;
-    private static int SALDO_MINIMO = -50, MOVIMIENTO_GRANDE = 3000;
+    private static final int SALDO_MINIMO = -50, MOVIMIENTO_GRANDE = 3000;
     private static String AVISO_HACIENDA = "\nAviso, notificacion a hacienda \n", AVISO_NEGATIVO = "\nAviso, Tiene un descubierto en la cuenta \n de";
     private static final long IBANMinimo = 0000000001;
     private static final long IBANMaximo = 9999999999L;
     private static String codPais, codCiudad, codDir, ibanRandom;
+    private static String[] asignacionLetra = {"T", "R", "W", "A", "G", "M", "Y", "F", "P", "D", "X", "B", "N", "J", "Z", "S", "Q", "V", "H", "L", "C", "K", "E"};
 
 }
