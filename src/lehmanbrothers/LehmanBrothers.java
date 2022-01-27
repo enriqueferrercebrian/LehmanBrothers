@@ -12,30 +12,12 @@ public class LehmanBrothers {
 
     public static void main(String[] args) {
 
-        while (paisCorrecto) {
-            try {
-                tmpPais = CuentaBancaria.generarIBAN(pais());
-                paisCorrecto = false;
-            } catch (Exception e) {
-
-                System.out.println("Porfavor, indique numeros del 1 al 3.");
-
-            }
-
-        }
         Persona titular = crearUsuario();
-        CuentaBancaria nuevaCuenta = new CuentaBancaria(pinSeguridad(), tmpPais, titular.getNombre());
-        seguir = true;
-        while (seguir == true) {
-            respuestaUsuario = 8;
+        CuentaBancaria nuevaCuenta = new CuentaBancaria(pinSeguridad(), seleccionPais(), titular.getNombre());
 
-            try {
-                menu();
-            } catch (Exception e) {
+        while (seguir) {
 
-                System.out.println("Porfavor, solo numeros del 0 al 6, Gracias.");
-
-            }
+            menu();
 
             switch (respuestaUsuario) {
 
@@ -117,6 +99,7 @@ public class LehmanBrothers {
                 case 0:
                     System.out.println("Gracias por confiar en nosotros");
                     seguir = false;
+                    break;
             }
 
         }
@@ -124,6 +107,18 @@ public class LehmanBrothers {
     }
 
     //Metodos
+    public static String seleccionPais() {
+
+        while (paisCorrecto) {
+
+            tmpPais = generarIBAN(pais());
+            paisCorrecto = false;
+
+        }
+        return tmpPais;
+
+    }
+
     public static Persona crearUsuario() {
         System.out.println("Introduce el nombre del titular");
         nomTitular = /*sc.nextLine()*/ "Enrique";
@@ -173,7 +168,7 @@ public class LehmanBrothers {
         System.out.println("1. España.");
         System.out.println("2. Andorra.");
         System.out.println("3. Suiza.");
-        return eleccionPais = /*Integer.parseInt(sc.nextLine())*/ 1;
+        return eleccionPais = /*Integer.parseInt(sc.nextLine())*/ (int) (Math.random() * 3 + 1);
 
     }
 
@@ -186,7 +181,7 @@ public class LehmanBrothers {
         System.out.println("1. Madrid.");
         System.out.println("2. Barcelona.");
         System.out.println("3. Valencia.");
-        return respuestaUsuario = /*Integer.parseInt(sc.nextLine())*/ 1;
+        return respuestaUsuario = /*Integer.parseInt(sc.nextLine())*/ (int) (Math.random() * 3 + 1);
 
     }
 
@@ -196,7 +191,7 @@ public class LehmanBrothers {
         System.out.println("1. Andorra La Vella.");
         System.out.println("2. Escaldes-Engordany.");
         System.out.println("3. Encamp.");
-        return respuestaUsuario = /*Integer.parseInt(sc.nextLine())*/ 1;
+        return respuestaUsuario = /*Integer.parseInt(sc.nextLine())*/ (int) (Math.random() * 3 + 1);
 
     }
 
@@ -206,7 +201,7 @@ public class LehmanBrothers {
         System.out.println("1. Zurich.");
         System.out.println("2. Ginebra.");
         System.out.println("3. Basilea.");
-        return respuestaUsuario = /*Integer.parseInt(sc.nextLine())*/ 1;
+        return respuestaUsuario = /*Integer.parseInt(sc.nextLine())*/ (int) (Math.random() * 3 + 1);
 
     }
 //-------------------------------------------------------------------------------------------------------
@@ -221,7 +216,7 @@ public class LehmanBrothers {
         System.out.println("1. Calle Ensanche.");
         System.out.println("2. Puerta del Sol.");
         System.out.println("3. El Retiro.");
-        return respuestaUsuario = /*Integer.parseInt(sc.nextLine())*/ 1;
+        return respuestaUsuario = /*Integer.parseInt(sc.nextLine())*/ (int) (Math.random() * 3 + 1);
 
     }
 
@@ -231,7 +226,7 @@ public class LehmanBrothers {
         System.out.println("1. Calle Perico.");
         System.out.println("2. Calle Santa Maria.");
         System.out.println("3. Plaza España.");
-        return respuestaUsuario = /*Integer.parseInt(sc.nextLine())*/ 1;
+        return respuestaUsuario = /*Integer.parseInt(sc.nextLine())*/ (int) (Math.random() * 3 + 1);
     }
 
     public static int oficinasValencia() {
@@ -240,7 +235,7 @@ public class LehmanBrothers {
         System.out.println("1. Calle Islas Baleares.");
         System.out.println("2. Avenida Francia.");
         System.out.println("3. Calle Xativa.");
-        return respuestaUsuario = /*Integer.parseInt(sc.nextLine())*/ 1;
+        return respuestaUsuario = /*Integer.parseInt(sc.nextLine())*/ (int) (Math.random() * 3 + 1);
 
     }
     // Oficinas Andorra
@@ -251,7 +246,7 @@ public class LehmanBrothers {
         System.out.println("1. Calle Contador.");
         System.out.println("2. Calle Libra.");
         System.out.println("3. Avenida Principal.");
-        return respuestaUsuario = /*Integer.parseInt(sc.nextLine())*/ 1;
+        return respuestaUsuario = /*Integer.parseInt(sc.nextLine())*/ (int) (Math.random() * 3 + 1);
 
     }
 
@@ -261,7 +256,7 @@ public class LehmanBrothers {
         System.out.println("1. Calle Libertad.");
         System.out.println("2. Calle Gabriel Miro.");
         System.out.println("3. Plaza Iglesia.");
-        return respuestaUsuario = /*Integer.parseInt(sc.nextLine())*/ 1;
+        return respuestaUsuario = /*Integer.parseInt(sc.nextLine())*/ (int) (Math.random() * 3 + 1);
 
     }
 
@@ -271,7 +266,7 @@ public class LehmanBrothers {
         System.out.println("1. Calle Italia.");
         System.out.println("2. Calle Limbo.");
         System.out.println("3. Calle Dinamarca.");
-        return respuestaUsuario = /*Integer.parseInt(sc.nextLine())*/ 1;
+        return respuestaUsuario = /*Integer.parseInt(sc.nextLine())*/ (int) (Math.random() * 3 + 1);
 
     }
     // Oficinas Suiza
@@ -282,7 +277,7 @@ public class LehmanBrothers {
         System.out.println("1. Bahnhofstrasse.");
         System.out.println("2. Seefeldquai.");
         System.out.println("3. Niederdorf.");
-        return respuestaUsuario = /*Integer.parseInt(sc.nextLine())*/ 1;
+        return respuestaUsuario = /*Integer.parseInt(sc.nextLine())*/ (int) (Math.random() * 3 + 1);
 
     }
 
@@ -292,7 +287,7 @@ public class LehmanBrothers {
         System.out.println("1. Calle Purgatorio.");
         System.out.println("2. Calle Cruz De Oro.");
         System.out.println("3. Calle Todas Las Almas.");
-        return respuestaUsuario = /*Integer.parseInt(sc.nextLine())*/ 1;
+        return respuestaUsuario = /*Integer.parseInt(sc.nextLine())*/ (int) (Math.random() * 3 + 1);
 
     }
 
@@ -302,7 +297,7 @@ public class LehmanBrothers {
         System.out.println("1. Heuberg.");
         System.out.println("2. Kornhausgasse.");
         System.out.println("3. Missionsstrasse.");
-        return respuestaUsuario = /*Integer.parseInt(sc.nextLine())*/ 1;
+        return respuestaUsuario = /*Integer.parseInt(sc.nextLine())*/ (int) (Math.random() * 3 + 1);
 
     }
 //-------------------------------------------------------------------------------------------------------
@@ -330,15 +325,14 @@ public class LehmanBrothers {
         System.out.println("2. Muestrame todos los ingreso.");
         System.out.println("3. Muestrame todas las retiradas.");
         System.out.println("4. Atras.");
-        return respuestaUsuario = /*Integer.parseInt(sc.nextLine())*/ 1;
+        return respuestaUsuario = Integer.parseInt(sc.nextLine());
     }
 // Opcion 1 - muestra info de la cuenta.
 
     public static void muestraInfoCuenta(CuentaBancaria nuevaCuenta, Persona Titular) {
 
-        infoCuenta = nuevaCuenta.getIban() + " " + nuevaCuenta.getNomTitular()
-                + " " + " " + nuevaCuenta.formatoEuros(nuevaCuenta.getSaldo()) + " "
-                + Titular.getDNI() + " \n\n";
+        infoCuenta = "\n--------------------------------------------------------" + "\n" + nuevaCuenta.getIban() + " " + nuevaCuenta.getNomTitular()
+                + " " + "| Saldo: " + nuevaCuenta.formatoEuros(nuevaCuenta.getSaldo()) + "\n\n";
 
         if (nuevaCuenta.getAutorizados().size() > 1) {
 
@@ -411,7 +405,7 @@ public class LehmanBrothers {
                 if (cantidad >= MOVIMIENTO_GRANDE) {
                     System.out.println(AVISO_HACIENDA);
                 }
-               
+
                 nuevaCuenta.retirada(cantidad, remitente, concepto, tipoMovimiento);
                 System.out.println("*Retirada realizada con éxito*\n");
             }
@@ -508,19 +502,210 @@ public class LehmanBrothers {
         }
     }
 
+    public static String generarIBAN(int respuestaUsuario) {
+
+        switch (respuestaUsuario) {
+
+            case 1:
+                pais = "ES";
+                codPais = "01";
+                switch (LehmanBrothers.ciudadesEspanya()) {
+                    case 1:
+                        codCiudad = "3333";
+                        switch (LehmanBrothers.oficinasMadrid()) {
+                            case 1:
+                                codDir = "3333";
+
+                                break;
+                            case 2:
+                                codDir = "6666";
+
+                                break;
+                            case 3:
+                                codDir = "9999";
+
+                                break;
+                        }
+                        break;
+                    case 2:
+                        codCiudad = "6666";
+
+                        switch (LehmanBrothers.oficinasBarcelona()) {
+                            case 1:
+                                codDir = "3333";
+                                break;
+
+                            case 2:
+                                codDir = "6666";
+                                break;
+
+                            case 3:
+                                codDir = "9999";
+                                break;
+                        }
+                        break;
+                    case 3:
+                        codCiudad = "9999";
+
+                        switch (LehmanBrothers.oficinasValencia()) {
+                            case 1:
+                                codDir = "3333";
+
+                                break;
+                            case 2:
+                                codDir = "6666";
+                                break;
+                            case 3:
+                                codDir = "9999";
+                                break;
+                        }
+                        break;
+                }
+                break;
+
+            case 2:
+                pais = "AN";
+                codPais = "02";
+
+                switch (LehmanBrothers.ciudadesAndorra()) {
+                    case 1:
+                        codCiudad = "3333";
+
+                        switch (LehmanBrothers.oficinasAndorraLaVella()) {
+                            case 1:
+                                codDir = "3333";
+                                break;
+                            case 2:
+                                codDir = "6666";
+                                break;
+                            case 3:
+                                codDir = "9999";
+                                break;
+                        }
+                        break;
+                    case 2:
+                        codCiudad = "6666";
+
+                        switch (LehmanBrothers.oficinasEscaldesEngordany()) {
+                            case 1:
+                                codDir = "3333";
+                                break;
+
+                            case 2:
+                                codDir = "6666";
+                                break;
+
+                            case 3:
+                                codDir = "9999";
+                                break;
+                        }
+                        break;
+                    case 3:
+                        codCiudad = "9999";
+
+                        switch (LehmanBrothers.oficinasEncamp()) {
+                            case 1:
+                                codDir = "3333";
+                                break;
+                            case 2:
+                                codDir = "6666";
+                                break;
+                            case 3:
+                                codDir = "9999";
+                                break;
+                        }
+                        break;
+                }
+                break;
+
+            case 3:
+                pais = "SU";
+                codPais = "03";
+
+                switch (LehmanBrothers.ciudadesSuiza()) {
+                    case 1:
+                        codCiudad = "3333";
+
+                        switch (LehmanBrothers.oficinasZurich()) {
+                            case 1:
+                                codDir = "3333";
+
+                                break;
+                            case 2:
+                                codDir = "6666";
+
+                                break;
+                            case 3:
+                                codDir = "9999";
+
+                                break;
+                        }
+                        break;
+                    case 2:
+                        codCiudad = "6666";
+
+                        switch (LehmanBrothers.oficinasGinebra()) {
+                            case 1:
+                                codDir = "3333";
+
+                                break;
+
+                            case 2:
+                                codDir = "6666";
+
+                                break;
+
+                            case 3:
+                                codDir = "9999";
+
+                                break;
+                        }
+                        break;
+                    case 3:
+                        codCiudad = "9999";
+
+                        switch (LehmanBrothers.oficinasBasilea()) {
+                            case 1:
+                                codDir = "3333";
+
+                                break;
+                            case 2:
+                                codDir = "6666";
+
+                                break;
+                            case 3:
+                                codDir = "9999";
+
+                                break;
+                        }
+                        break;
+                }
+                break;
+
+        }
+        ibanRandom = ((int) Math.floor(Math.random() * (IBANMaximo - IBANMinimo + 1) + IBANMinimo)) + "";
+        iban = pais + codPais + codCiudad + codDir + (String.valueOf(codCiudad).charAt(0)) + (String.valueOf(codDir).charAt(0)) + ibanRandom;
+
+        return iban;
+    }
+
     //Variables
     private static String iban = "", nomTitular, remitente = "", concepto = "", stringConcepto = "Concepto: ",
             stringRemitente = "Remitente: ", tipoMovimiento, cantidadString = "Cantidad: ";
 
     private static double cantidad = 0;
-    private static int respuestaUsuario = 0, controlMovimiento, eleccionPais;
+    private static int respuestaUsuario = 8, controlMovimiento, eleccionPais;
     private static String DNI, pin = "0", pin2, pinExp = "\\d{4}";
     private static boolean ibancorrecto = false, paisCorrecto = true;
     private static Scanner sc = new Scanner(System.in);
     private static String infoCuenta, pais, tmpPais;
-    private static boolean seguir, salirPin = false;
+    private static boolean seguir = true, salirPin = false;
     private static Persona titular;
     private static CuentaBancaria nuevaCuenta;
     private static int SALDO_MINIMO = -50, MOVIMIENTO_GRANDE = 3000;
     private static String AVISO_HACIENDA = "\nAviso, notificacion a hacienda \n", AVISO_NEGATIVO = "\nAviso, Tiene un descubierto en la cuenta \n de";
+    private static final long IBANMinimo = 0000000001;
+    private static final long IBANMaximo = 9999999999L;
+    private static String codPais, codCiudad, codDir, ibanRandom;
+
 }

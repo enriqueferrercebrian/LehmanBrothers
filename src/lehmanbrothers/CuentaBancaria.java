@@ -70,7 +70,7 @@ public class CuentaBancaria {
         if ((cantidad * 11) > 0) {
 
             if ((cantidad * 11) >= 3000) {
-
+//
                 controlMovimiento = 1;
 
             } else {
