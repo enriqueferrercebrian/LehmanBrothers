@@ -1,9 +1,7 @@
 package lehmanbrothers;
 
-import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.Date;
 
 /**
  *
@@ -15,7 +13,7 @@ public class Movimientos {
     private double cantidad;
     private String fecha;
     private String concepto, remitente, tipoMovimiento;
-    DateTimeFormatter formatear = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+    DateTimeFormatter formatear = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");// formateo de la hora para proporcionarla como se desea.
    
 
     String fechaFormateada;

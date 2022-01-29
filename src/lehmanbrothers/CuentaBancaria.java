@@ -23,7 +23,7 @@ public class CuentaBancaria {
     private static boolean buenPais = true;
     private static final long IBANMinimo = 0000000001;
     private static final long IBANMaximo = 9999999999L;
-//contructor 
+
 
 //contructor
     public CuentaBancaria(String pin, String iban, String nomTitular) {
@@ -32,7 +32,7 @@ public class CuentaBancaria {
         this.nomTitular = nomTitular;
         saldo = 0;
 
-        historicoMovimientos = new ArrayList<>();
+        historicoMovimientos = new ArrayList<>(); 
     }
 
     // Getters
@@ -65,7 +65,7 @@ public class CuentaBancaria {
     }
 
     //Funciones
-    public int ingresar(double cantidad, String remitente, String concepto, String tipoMovimiento) {
+    public int ingresar(double cantidad, String remitente, String concepto, String tipoMovimiento) { // realizamos una comprobacion sobre la cantidad obtenida del usuario para realizar el ingreso o no segun los requerimientos que tenemos abajo.
 
         if ((cantidad * 11) > 0) {
 
@@ -83,12 +83,12 @@ public class CuentaBancaria {
 
         }
 
-        Movimientos nuevoIngreso = new Movimientos(tipoMovimiento, cantidad, remitente, concepto);
+        Movimientos nuevoIngreso = new Movimientos(tipoMovimiento, cantidad, remitente, concepto); // metodo encargado de registrar un nuevo movimiento de ingreso y devolviendo un digito de control para informar al usuario.
         historicoMovimientos.add(nuevoIngreso);
         return controlMovimiento;
     }
 
-    public int retirada(double cantidad, String remitente, String concepto, String tipoMovimiento) {
+    public int retirada(double cantidad, String remitente, String concepto, String tipoMovimiento) {// en este metodo restamos la cantidad del usuario al saldo y registramos el movimiento.
 
         saldo = getSaldo() - cantidad;
         controlMovimiento = -1;
@@ -100,7 +100,7 @@ public class CuentaBancaria {
 
     // Seccion de autorizados en la cuenta
     // autorizar
-    public boolean autorizar(String autorizadoDNI, String autorizadoNombre) {
+    public boolean autorizar(String autorizadoDNI, String autorizadoNombre) {// generamos un objet o de tipo persona comprobando el DNI y el nombre y añiedonlo a este, el cual añadimos a la lista de autorizados.
         Persona autorizado = new Persona(autorizadoDNI, autorizadoNombre);
         boolean autorizadoResgistrado = false;
         if (autorizados.toString().contains(autorizadoDNI)) {
@@ -117,8 +117,8 @@ public class CuentaBancaria {
     public boolean quitarAutorizado(String autorizadoDNI) {
         boolean autorizadoEliminado = false;
 
-        for (Persona buscarAutorizado : autorizados) {
-            if (buscarAutorizado.getDNI().equalsIgnoreCase(autorizadoDNI)) {
+        for (Persona buscarAutorizado : autorizados) { // hacemos un recorrido por el List de autorizados
+            if (buscarAutorizado.getDNI().equalsIgnoreCase(autorizadoDNI)) {// si lo encontramos lo eliminamos y devolvemos un true el cual nos indicara que todo ha ido bien, si no un false para que nos informe de que algo ha ido mal.
                 autorizadoEliminado = autorizados.remove(buscarAutorizado);
                 break;
             }
@@ -137,179 +137,6 @@ public class CuentaBancaria {
 
     }
 
-    //Generar iban
-    public static String generarIBAN(int respuestaUsuario) {
 
-        switch (respuestaUsuario) {
-
-            case 1:
-                pais = "ES";
-                codPais = "01";
-                switch (LehmanBrothers.ciudadesEspanya()) {
-                    case 1:
-                        codCiudad = "3333";
-                        switch (LehmanBrothers.oficinasMadrid()) {
-                            case 1:
-                                codDir = "3333";
-
-                                break;
-                            case 2:
-                                codDir = "6666";
-
-                                break;
-                            case 3:
-                                codDir = "9999";
-
-                                break;
-                        }
-                        break;
-                    case 2:
-                        codCiudad = "6666";
-
-                        switch (LehmanBrothers.oficinasBarcelona()) {
-                            case 1:
-                                codDir = "3333";
-                                break;
-
-                            case 2:
-                                codDir = "6666";
-                                break;
-
-                            case 3:
-                                codDir = "9999";
-                                break;
-                        }
-                        break;
-                    case 3:
-                        codCiudad = "9999";
-
-                        switch (LehmanBrothers.oficinasValencia()) {
-                            case 1:
-                                codDir = "3333";
-
-                                break;
-                            case 2:
-                                codDir = "6666";
-                                break;
-                            case 3:
-                                codDir = "9999";
-                                break;
-                        }
-                        break;
-                }
-                break;
-
-            case 2:
-                pais = "AN";
-                codPais = "02";
-
-                switch (LehmanBrothers.ciudadesAndorra()) {
-                    case 1:
-                        codCiudad = "3333";
-
-                        switch (LehmanBrothers.oficinasAndorraLaVella()) {
-                            case 1:
-                                codDir = "3333";
-                                break;
-                            case 2:
-                                codDir = "6666";
-                                break;
-                            case 3:
-                                codDir = "9999";
-                                break;
-                        }
-                        break;
-                    case 2:
-                        codCiudad = "6666";
-
-                        switch (LehmanBrothers.oficinasEscaldesEngordany()) {
-                            case 1:
-                                codDir = "3333";
-                                break;
-
-                            case 2:
-                                codDir = "6666";
-                                break;
-
-                            case 3:
-                                codDir = "9999";
-                                break;
-                        }
-                        break;
-                    case 3:
-                        codCiudad = "9999";
-
-                        switch (LehmanBrothers.oficinasEncamp()) {
-                            case 1:
-                                codDir = "3333";
-                                break;
-                            case 2:
-                                codDir = "6666";
-                                break;
-                            case 3:
-                                codDir = "9999";
-                                break;
-                        }
-                        break;
-                }
-                break;
-
-            case 3:
-                pais = "SU";
-                codPais = "03";
-
-                switch (LehmanBrothers.ciudadesSuiza()) {
-                    case 1:
-                        codCiudad = "3333";
-
-                        switch (LehmanBrothers.oficinasZurich()) {
-                            case 1:
-                                break;
-                            case 2:
-                                break;
-                            case 3:
-                                break;
-                        }
-                        break;
-                    case 2:
-                        codCiudad = "6666";
-
-                        switch (LehmanBrothers.oficinasGinebra()) {
-                            case 1:
-                                break;
-
-                            case 2:
-                                break;
-
-                            case 3:
-                                break;
-                        }
-                        break;
-                    case 3:
-                        codCiudad = "9999";
-
-                        switch (LehmanBrothers.oficinasBasilea()) {
-                            case 1:
-                                break;
-                            case 2:
-                                break;
-                            case 3:
-                                break;
-                        }
-                        break;
-                }
-                break;
-
-        }
-        ibanRandom = ((int) Math.floor(Math.random() * (IBANMaximo - IBANMinimo + 1) + IBANMinimo)) + "";
-        iban = pais + codPais + codCiudad + codDir + (String.valueOf(codCiudad).charAt(0)) + (String.valueOf(codDir).charAt(0)) + ibanRandom;
-        if (iban.length() == 24 && iban.substring(0, 2).equalsIgnoreCase("ES")) {
-        } else {
-            System.out.println(iban);
-            System.out.println("Formato de IBAN no sorportado.");
-        }
-
-        return iban;
-    }
 
 }
